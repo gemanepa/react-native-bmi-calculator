@@ -12,3 +12,7 @@
 - "react": "16.6.3",
 - "react-native": "0.58.5",
 - "react-native-i18n": "^2.0.15"
+### i18n Languages:
+- English
+- Spanish
+- Portuguese
