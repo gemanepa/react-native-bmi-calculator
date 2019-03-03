@@ -52,15 +52,16 @@ export default class Profile extends Component {
       message = <Text>{i18n.t('obesidadmorbida')}</Text>;
      }
      return message
-  }    
+  }
+    
   
   render() {    
-    const BMI_CALCULATION = (this.state.peso / ((this.state.altura / 100) * (this.state.altura / 100)))
+  const BMI_CALCULATION = (this.state.peso / ((this.state.altura / 100) * (this.state.altura / 100)))
     return (
-      <View style={styles.container}>
-<View style={{width: 100, position: 'absolute', display: 'flex', flexDirection: 'row', alignItems: 'center', top: 5, left: 280}}>
+      <View style={styles.appcontainer}>
+<View style={styles.logocontainer}>
     <Image
-           style={{width: 75, height: 75}}
+           style={styles.logo}
           source={require('./assets/splash.png')}
         />
         
@@ -70,7 +71,7 @@ export default class Profile extends Component {
         {i18n.t('peso')}
         </Text>
         <Slider
-         style={{ width: 360}}
+         style={styles.slider}
          minimumTrackTintColor={'#2196f3'}
          maximumTrackTintColor={'#2196f3'}
          thumbTintColor={'#ff00ff'}
@@ -78,84 +79,33 @@ export default class Profile extends Component {
          minimumValue={4}
          maximumValue={240}
          value={this.state.peso}
-         onValueChange={val => this.setState({ peso: val })}
+         onValueChange={val => this.setState({ peso: val }) && this.IMClasification.bind(this)}
+         onSlidingComplete={ val => this.getVal(val)}
         />
         
 
-      <View style={{
-            display: 'flex',
-            justifyContent: 'space-around',
-            height: 120, 
-            width: 400, 
-            textAlign: 'center', 
-            color: 'black', 
-            fontSize: 30,
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginLeft: 15
-          }}>  
-          <View style={{
-            height: 50, 
-            width: 100, 
-            textAlign: 'center', 
-            color: 'black', 
-            fontSize: 30,
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
+      <View style={styles.weightunderslider}>  
+          <View style={styles.kgsflexrow}>
         <TextInput
-          style={{
-            textAlign: 'center', 
-            backgroundColor: 'white',
-            borderRadius: 5,
-            color: 'black', 
-            fontSize: 30,
-            width: 80,
-            height: 80,
-            borderColor: 'gray', 
-            borderWidth: 1, 
-            marginRight: 5
-          }}
+          style={styles.kgsinput}
           onChangeText={(peso) => this.setState({peso})}
           maxLength = {3}
           keyboardType={"numeric"}>
         {this.state.peso}
         </TextInput>
-        <Text style={{fontSize: 30}}>
+        <Text style={styles.measurementunitsText}>
         kgs 
         </Text>
       </View>
-        <View style={{
-            height: 50, 
-            width: 100, 
-            textAlign: 'center', 
-            color: 'black', 
-            fontSize: 30,
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginRight: 40
-          }}>
+        <View style={styles.lbsflexrow}>
         <TextInput
-          style={{
-            backgroundColor: 'white',
-            borderRadius: 5,
-            textAlign: 'center', 
-            color: 'black', 
-            fontSize: 30,
-            width: 80,
-            height: 80,
-            borderColor: 'gray', 
-            borderWidth: 1, 
-            marginRight: 5,
-          }}
+          style={styles.lbsinput}
           onChangeText={(event) => this.setState({peso: (event / 2.20462).toPrecision(3)})} 
           maxLength = {3}  
           keyboardType={"numeric"}>
         {this.state.peso.toPrecision && (this.state.peso * 2.20462).toPrecision(3)}
         </TextInput>
-        <Text style={{fontSize: 30,}}>
+        <Text style={styles.measurementunitsText}>
         lbs
         </Text>
       </View>
@@ -165,7 +115,7 @@ export default class Profile extends Component {
         {i18n.t('altura')}
         </Text>
          <Slider
-         style={{ width: 360}}
+         style={styles.slider}
          minimumTrackTintColor={'#ff00ff'}
          maximumTrackTintColor={'#ff00ff'}
          thumbTintColor={'#add8e6'}
@@ -173,77 +123,26 @@ export default class Profile extends Component {
          minimumValue={50}
          maximumValue={210}
          value={this.state.altura}
-         onValueChange={val => this.setState({ altura: val })}
+         onValueChange={val => this.setState({ altura: val }) }
         />
 
-      <View style={{
-            display: 'flex',
-            justifyContent: 'space-around',
-            height: 120, 
-            width: 400, 
-            textAlign: 'center', 
-            color: 'black', 
-            fontSize: 30,
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>  
-          <View style={{
-            height: 50, 
-            width: 100, 
-            textAlign: 'center', 
-            color: 'black', 
-            fontSize: 30,
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
+      <View style={styles.heightunderslider}>  
+          <View style={styles.mtsflexrow}>
         <TextInput
-          style={{
-            backgroundColor: 'white',
-            borderRadius: 5,
-            textAlign: 'center', 
-            color: 'black', 
-            fontSize: 30,
-            width: 80,
-            height: 80,
-            borderColor: 'gray', 
-            borderWidth: 1, 
-            marginRight: 5
-          }}
+          style={styles.mtsinput}
           onChangeText={(altura) => this.setState({altura: altura * 100})}
           defaultValue={(this.state.altura / 100)}
           maxLength = {4}
           keyboardType={"decimal-pad"}>
         {this.state.altura.toPrecision && (this.state.altura.toPrecision(3)) / 100}
         </TextInput>
-        <Text style={{fontSize: 30}}>
+        <Text style={styles.measurementunitsText}>
         mts 
         </Text>
       </View>
-        <View style={{
-            height: 50, 
-            width: 100, 
-            textAlign: 'center', 
-            color: 'black', 
-            fontSize: 30,
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center'
-          }}>
+        <View style={styles.cmsflexrow}>
         <TextInput
-          style={{
-            backgroundColor: 'white',
-            borderRadius: 5,
-            textAlign: 'center', 
-            color: 'black', 
-            fontSize: 30,
-            width: 80,
-            height: 80,
-            borderColor: 'gray', 
-            borderWidth: 1, 
-            marginRight: 5,
-            marginLeft: -23
-          }}
+          style={styles.cmsinput}
           onChangeText={(altura) => this.setState({altura})}
           defaultValue={this.state.altura}
           maxLength = {3}
@@ -256,12 +155,8 @@ export default class Profile extends Component {
       </View>
     </View>
 
-<View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-<View style={{backgroundColor: 'white', 
-    borderColor: 'gray', 
-    borderWidth: 1,
-    borderRadius: 65,
-    padding: 2, marginRight: 1}}>
+<View style={styles.flexResultsMessage}>
+<View style={styles.resultsContainer}>
         <Text style={styles.resultsTopPart}>
         {i18n.t('imc')} </Text>
         <Text style={styles.resultsBottomPart}>{(BMI_CALCULATION).toPrecision(3)}
@@ -277,5 +172,6 @@ export default class Profile extends Component {
     );
   }
 }
+
  
 
