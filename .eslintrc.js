@@ -8,7 +8,11 @@ module.exports = {
     'no-use-before-define': 'off',
     'react/jsx-filename-extension': 'off',
     'react/prop-types': 'off',
-    'comma-dangle': 'off'
+    'comma-dangle': 'off',
+    "import/no-unresolved": [
+      2, 
+      { "caseSensitive": false }
+   ]
   },
   'globals': {
     "fetch": false

@@ -6,9 +6,7 @@ import {
   Image,
   Slider,
 } from 'react-native';
-// eslint-disable-next-line import/no-unresolved
 import i18n from 'i18n-js';
-// eslint-disable-next-line import/no-unresolved
 import I18n from 'react-native-i18n';
 import { en, es, pt } from './stringsTranslations';
 import styles from './AppStyles';
