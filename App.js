@@ -1,19 +1,14 @@
-import React, { Component } from 'react';
-import {
-  Text,
-  TextInput,
-  View,
-  Image,
-  Slider,
-} from 'react-native';
+import React, {Component} from 'react';
+import {Text, TextInput, View, Image} from 'react-native';
+import Slider from '@react-native-community/slider';
 import i18n from 'i18n-js';
 import I18n from 'react-native-i18n';
-import { en, es, pt } from './stringsTranslations';
+import {en, es, pt} from './stringsTranslations';
 import styles from './AppStyles';
 import logo from './assets/splash.png';
 
 i18n.fallbacks = true;
-i18n.translations = { en, es, pt };
+i18n.translations = {en, es, pt};
 i18n.locale = I18n.currentLocale();
 
 export default class App extends Component {
@@ -21,13 +16,13 @@ export default class App extends Component {
     super(props);
     this.state = {
       peso: 60,
-      altura: 168
+      altura: 168,
     };
   }
 
   message() {
     let message;
-    const { peso, altura } = this.state;
+    const {peso, altura} = this.state;
     const BMI_CALCULATION = peso / ((altura / 100) * (altura / 100));
     if (BMI_CALCULATION >= 18.5 && BMI_CALCULATION <= 24.9) {
       message = <Text>{i18n.t('pesonormal')}</Text>;
@@ -49,18 +44,13 @@ export default class App extends Component {
     return message;
   }
 
-
   render() {
-    const { peso, altura } = this.state;
-    const BMI_CALCULATION = (peso / ((altura / 100) * (altura / 100)));
+    const {peso, altura} = this.state;
+    const BMI_CALCULATION = peso / ((altura / 100) * (altura / 100));
     return (
       <View style={styles.appcontainer}>
         <View style={styles.logocontainer}>
-          <Image
-            style={styles.logo}
-            source={logo}
-          />
-
+          <Image style={styles.logo} source={logo} />
         </View>
 
         <Text style={styles.overslider}>
@@ -77,42 +67,39 @@ export default class App extends Component {
           minimumValue={4}
           maximumValue={240}
           value={peso}
-          onValueChange={val => this.setState({ peso: val }) && this.IMClasification.bind(this)}
+          onValueChange={val =>
+            this.setState({peso: val}) && this.IMClasification.bind(this)
+          }
         />
-
 
         <View style={styles.weightunderslider}>
           <View style={styles.kgsflexrow}>
             <TextInput
               style={styles.kgsinput}
-              onChangeText={insertedValue => this.setState({ peso: insertedValue })}
+              onChangeText={insertedValue =>
+                this.setState({peso: insertedValue})
+              }
               maxLength={3}
-              keyboardType="numeric"
-            >
-              {peso}
+              keyboardType="numeric">
+              {String(peso)}
             </TextInput>
-            <Text style={styles.measurementunitsText}>
-        kgs
-            </Text>
+            <Text style={styles.measurementunitsText}>kgs</Text>
           </View>
           <View style={styles.lbsflexrow}>
             <TextInput
               style={styles.lbsinput}
-              onChangeText={value => this.setState({ peso: (value / 2.20462).toPrecision(3) })}
+              onChangeText={value =>
+                this.setState({peso: (value / 2.20462).toPrecision(3)})
+              }
               maxLength={3}
-              keyboardType="numeric"
-            >
-              {peso.toPrecision && (peso * 2.20462).toPrecision(3)}
+              keyboardType="numeric">
+              {String(peso.toPrecision && (peso * 2.20462).toPrecision(3))}
             </TextInput>
-            <Text style={styles.measurementunitsText}>
-        lbs
-            </Text>
+            <Text style={styles.measurementunitsText}>lbs</Text>
           </View>
         </View>
 
-        <Text style={styles.overslider}>
-          {i18n.t('altura')}
-        </Text>
+        <Text style={styles.overslider}>{i18n.t('altura')}</Text>
         <Slider
           style={styles.slider}
           minimumTrackTintColor="#ff00ff"
@@ -122,58 +109,46 @@ export default class App extends Component {
           minimumValue={50}
           maximumValue={210}
           value={altura}
-          onValueChange={val => this.setState({ altura: val })}
+          onValueChange={val => this.setState({altura: val})}
         />
 
         <View style={styles.heightunderslider}>
           <View style={styles.mtsflexrow}>
             <TextInput
               style={styles.mtsinput}
-              onChangeText={insertedValue => this.setState({ altura: insertedValue * 100 })}
-              defaultValue={(altura / 100)}
+              onChangeText={insertedValue =>
+                this.setState({altura: insertedValue * 100})
+              }
+              defaultValue={String(altura / 100)}
               maxLength={4}
-              keyboardType="decimal-pad"
-            >
-              {altura.toPrecision && (altura.toPrecision(3)) / 100}
+              keyboardType="decimal-pad">
+              {String(altura.toPrecision && altura.toPrecision(3) / 100)}
             </TextInput>
-            <Text style={styles.measurementunitsText}>
-        mts
-            </Text>
+            <Text style={styles.measurementunitsText}>mts</Text>
           </View>
           <View style={styles.cmsflexrow}>
             <TextInput
               style={styles.cmsinput}
-              onChangeText={insertedValue => this.setState({ altura: insertedValue })}
-              defaultValue={altura}
+              onChangeText={insertedValue =>
+                this.setState({altura: insertedValue})
+              }
+              defaultValue={String(altura)}
               maxLength={3}
-              keyboardType="numeric"
-            >
-              {altura.toPrecision && altura.toPrecision(3)}
+              keyboardType="numeric">
+              {String(altura.toPrecision && altura.toPrecision(3))}
             </TextInput>
-            <Text style={{ fontSize: 30, }}>
-        cms
-            </Text>
+            <Text style={{fontSize: 30}}>cms</Text>
           </View>
         </View>
 
         <View style={styles.flexResultsMessage}>
           <View style={styles.resultsContainer}>
-            <Text style={styles.resultsTopPart}>
-              {i18n.t('imc')}
-              {' '}
-
-            </Text>
+            <Text style={styles.resultsTopPart}>{i18n.t('imc')} </Text>
             <Text style={styles.resultsBottomPart}>
-              {(BMI_CALCULATION).toPrecision(3)}
-
+              {String(BMI_CALCULATION.toPrecision(3))}
             </Text>
-
           </View>
-          <Text style={styles.underresults}>
-
-            {this.message()}
-          </Text>
-
+          <Text style={styles.underresults}>{this.message()}</Text>
         </View>
       </View>
     );
